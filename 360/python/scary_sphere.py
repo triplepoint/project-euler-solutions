@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 # See: https://projecteuler.net/problem=360
 
 import logging, sys
 
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
 
 def is_on_sphere(x, y, z, r):
@@ -13,11 +14,11 @@ def is_on_sphere(x, y, z, r):
 
 
 def integer_points_on_sphere(r):
-    for x in range(-r, r+1):
-        for y in range(-r, r+1):
-            for z in range(-r, r+1):
-                if is_on_sphere(x, y, z, r):
-                    yield (x, y, z)
+    return [(x,y,z)
+            for x in range(-r, r+1)
+            for y in range(-r, r+1)
+            for z in range(-r, r+1)
+            if is_on_sphere(x, y, z, r)]
 
 
 def manhatten_distance_from_orgin(x, y, z):
@@ -25,11 +26,11 @@ def manhatten_distance_from_orgin(x, y, z):
 
 
 def main(r):
-    sum = 0
-    for x,y,z in integer_points_on_sphere(r):
+    s = 0
+    for x, y, z in integer_points_on_sphere(r):
         logging.debug("point on sphere: ({},{},{})".format(x,y,z))
-        sum += manhatten_distance_from_orgin(x, y, z)
-    return sum
+        s += manhatten_distance_from_orgin(x, y, z)
+    return s
 
 
 if __name__ == "__main__":
