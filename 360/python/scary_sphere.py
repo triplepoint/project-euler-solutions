@@ -3,6 +3,7 @@
 
 import argparse
 import logging, sys
+import re
 
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
@@ -36,9 +37,12 @@ def main(r):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Project Euler #360.')
-    parser.add_argument('radius', metavar='r', type=int,
+    parser.add_argument('radius', metavar='r',
                         help='The radius of the sphere in the problem')
     args = parser.parse_args()
 
-    r = args.radius
-    print("S({}) {}".format(r, main(r)))
+    # sanitize and eval the passed argument, to allow for simple exponentiation
+    r = eval(re.sub(r"\.(?![0-9])","", args.radius), {'__builtins__':None})
+    answer = main(r)
+
+    print("S({}) {}".format(r, answer))
