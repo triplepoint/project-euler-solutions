@@ -15,11 +15,11 @@ def is_on_sphere(x, y, z, r):
 
 
 def integer_points_on_sphere(r):
-    return [(x,y,z)
+    return ((x,y,z)
             for x in range(-r, r+1)
             for y in range(-r, r+1)
             for z in range(-r, r+1)
-            if is_on_sphere(x, y, z, r)]
+            if is_on_sphere(x, y, z, r))
 
 
 def manhatten_distance_from_orgin(x, y, z):
