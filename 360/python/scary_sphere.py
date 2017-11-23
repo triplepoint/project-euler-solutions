@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # See: https://projecteuler.net/problem=360
 
+import argparse
 import logging, sys
 
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
@@ -27,14 +28,17 @@ def manhatten_distance_from_orgin(x, y, z):
 
 def main(r):
     s = 0
-    for x, y, z in integer_points_on_sphere(r):
+    for x,y,z in integer_points_on_sphere(r):
         logging.debug("point on sphere: ({},{},{})".format(x,y,z))
         s += manhatten_distance_from_orgin(x, y, z)
     return s
 
 
 if __name__ == "__main__":
-    # The radius of the sphere
-    r = 45
+    parser = argparse.ArgumentParser(description='Project Euler #360.')
+    parser.add_argument('radius', metavar='r', type=int,
+                        help='The radius of the sphere in the problem')
+    args = parser.parse_args()
 
+    r = args.radius
     print("S({}) {}".format(r, main(r)))
