@@ -35,14 +35,24 @@ def main(r):
     return s
 
 
-if __name__ == "__main__":
+def parse_args_for_radius():
+    """
+    Other than the obvious argument parsing, we'll also evaluate the argument
+    as an expression, to allow for simple arithmetic like `10**10` or `5+1`.
+
+    To sanitize this input against method calls, we'll remove any decimal points
+    that aren't followed by a numeral.
+    see: https://stackoverflow.com/a/25437733/82257
+    """
     parser = argparse.ArgumentParser(description='Project Euler #360.')
-    parser.add_argument('radius', metavar='r',
-                        help='The radius of the sphere in the problem')
+    parser.add_argument('radius', help='The radius of the sphere in the problem')
     args = parser.parse_args()
 
-    # sanitize and eval the passed argument, to allow for simple exponentiation
-    r = eval(re.sub(r"\.(?![0-9])","", args.radius), {'__builtins__':None})
+    return eval(re.sub(r"\.(?![0-9])", "", args.radius), {'__builtins__': None})
+
+
+if __name__ == "__main__":
+    r = parse_args_for_radius()
     answer = main(r)
 
     print("S({}) {}".format(r, answer))
