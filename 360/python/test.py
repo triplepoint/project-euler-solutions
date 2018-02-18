@@ -6,6 +6,7 @@ import scary_sphere
 class TestCases(unittest.TestCase):
     def test_correct_answers(self):
         correct_answers = {
+            0: 0,
             1: 6,
             45: 34518,
         }
